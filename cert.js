@@ -2,29 +2,32 @@ function handleCert(data) {
   const container = document.getElementById("result");
 
   if (data.error) {
-    container.innerHTML = `<pre>❌ ${data.error}</pre>`;
+    container.innerHTML = `<div class="error">${data.error}</div>`;
     return;
   }
 
-  // عرض البيانات بصيغة JSON منسقة
-  let output = "";
+  let rows = "";
   for (const key in data) {
-    output += `${key}\t"${data[key]}"\n`;
+    rows += `<tr><th>${key}</th><td>${data[key]}</td></tr>`;
   }
-  container.innerHTML = `<pre>${output}</pre>`;
+
+  container.innerHTML = `
+    <table>
+      ${rows}
+    </table>
+  `;
 }
 
-// قراءة التوكن من رابط الصفحة
+// قراءة التوكن من الرابط
 const params = new URLSearchParams(window.location.search);
 const token = params.get("token");
 
 if (!token) {
   document.getElementById("result").innerHTML =
-    `<pre>❌ لم يتم العثور على التوكن في الرابط</pre>`;
+    `<div class="error">لم يتم العثور على التوكن في الرابط</div>`;
 } else {
-  // رابط Google Script API (استبدلي بالخاص بك)
   const url =
-    `https://script.google.com/macros/s/AKfycbyR3kY-Fzf6Fba2GzcqQmTUoOMDpp7yGP4f3np2FrYUzMyzALzTzHo-XPbbehIVs9WUCA/exec?token=${token}&callback=handleCert`;
+    `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec?token=${token}&callback=handleCert`;
 
   let s = document.createElement("script");
   s.src = url;
