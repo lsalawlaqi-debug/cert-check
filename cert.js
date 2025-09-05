@@ -14,19 +14,11 @@ function handleCert(data) {
     return d.toISOString().split("T")[0]; // YYYY-MM-DD
   }
 
-  // تحديد لون الحالة
-  let statusClass = "status gray";
-  if (data.status.toLowerCase() === "valid") {
-    statusClass = "status green";
-  } else if (data.status.toLowerCase() === "invalid") {
-    statusClass = "status red";
-  }
-
   container.innerHTML = `
     <div class="card">
       <h2>التحقق من الشهادة</h2>
       <div><span class="label">رقم الشهادة:</span> ${data.certificate_id}</div>
-      <div><span class="label">الحالة:</span> <span class="${statusClass}">${data.status}</span></div>
+      <div><span class="label">الحالة:</span> <span class="status">${data.status}</span></div>
       <div><span class="label">الاسم:</span> ${data.arabic_name}</div>
       <div><span class="label">رقم الهوية:</span> ${data.ID}</div>
       <div><span class="label">البرنامج:</span> ${data.program}</div>
@@ -47,7 +39,7 @@ if (!token) {
     `<div class="error">لم يتم العثور على التوكن في الرابط</div>`;
 } else {
   const url =
-    `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec?token=${token}&callback=handleCert`;
+    `https://script.google.com/macros/s/AKfycbz9cbK-fxe7RyKi1U7wnHySSuWctlrUiAoZ2LaLe1dbnVZH9X8IjdYiElhoTWPhUASc/exec?token=${token}&callback=handleCert`;
 
   let s = document.createElement("script");
   s.src = url;
