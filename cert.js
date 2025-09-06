@@ -2,17 +2,49 @@ function handleCert(data) {
   const container = document.getElementById("result");
 
   if (data.error) {
-    container.innerHTML = `<div class="error">${data.error}</div>`;
+    container.innerHTML = `<div class="error">لا يوجد شهادة بهذا الرمز</div>`;
     return;
+  }
+
+  // قاموس ترجمة الأعمدة
+  const labels = {
+    certificate_id: "رقم الشهادة",
+    status: "الحالة",
+    arabic_name: "الاسم",
+    ID: "رقم الهوية",
+    program: "البرنامج",
+    hours: "الساعات",
+    date_from: "تاريخ البداية",
+    date_to: "تاريخ النهاية",
+    issue_date: "تاريخ الإصدار",
+    issuer: "الجهة المصدّرة"
+  };
+
+  // دالة لتنسيق التاريخ (YYYY-MM-DD فقط)
+  function formatDate(str) {
+    if (!str) return "";
+    const d = new Date(str);
+    if (isNaN(d)) return str;
+    return d.toISOString().split("T")[0];
   }
 
   let rows = "";
   for (const key in data) {
-    rows += `<tr><th>${key}</th><td>${data[key]}</td></tr>`;
+    let value = data[key];
+
+    // تنسيق للتواريخ
+    if (["date_from", "date_to", "issue_date"].includes(key)) {
+      value = formatDate(value);
+    }
+
+    // إذا المفتاح موجود في القاموس نعرض اسمه بالعربي
+    const label = labels[key] || key;
+    rows += `<tr><th>${label}</th><td>${value}</td></tr>`;
   }
 
   container.innerHTML = `
-    <table>
+   
+    <table border="1" style="border-collapse: collapse; width: 100%; text-align: right;">
       ${rows}
     </table>
   `;
@@ -27,7 +59,7 @@ if (!token) {
     `<div class="error">لم يتم العثور على التوكن في الرابط</div>`;
 } else {
   const url =
-    `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec?token=${token}&callback=handleCert`;
+    `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec/exec?token=${token}&callback=handleCert`;
 
   let s = document.createElement("script");
   s.src = url;
