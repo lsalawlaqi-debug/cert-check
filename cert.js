@@ -24,7 +24,7 @@ const token = params.get("token");
 
 if (!token) {
   document.getElementById("result").innerHTML =
-    `<div class="error">لم يتم العثور على الرمز في الرابط</div>`;
+    `<div class="error">لم يتم العثور على التوكن في الرابط</div>`;
 } else {
   const url =
     `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec?token=${token}&callback=handleCert`;
