@@ -10,13 +10,12 @@ function handleCert(data) {
   const labels = {
     certificate_id: "رقم الشهادة",
     status: "الحالة",
-    arabic_name: "الاسم",
-    ID: "رقم الهوية",
-    program: "البرنامج",
-    hours: "الساعات",
-    date_from: "تاريخ البداية",
-    date_to: "تاريخ النهاية",
-    issue_date: "تاريخ الإصدار",
+    arabic_name: "اسم المتدرب",
+    program: "البرنامج التدريبي",
+    hours: "مجموع الساعات التدريبية",
+    date_from: "تاريخ بداية البرنامج",
+    date_to: "تاريخ نهاية البرنامج",
+    issue_date: "تاريخ اصدار الشهادة",
     issuer: "الجهة المصدّرة"
   };
 
@@ -59,7 +58,7 @@ if (!token) {
     `<div class="error">لم يتم العثور على التوكن في الرابط</div>`;
 } else {
   const url =
-    `https://script.google.com/macros/s/AKfycbyNxNV1WaqX7iLq86XfvWDtNEUYf4S82-DP837gUfR9Y-aiUCX1HhUc0kIa07wxD-SE-Q/exec/exec?token=${token}&callback=handleCert`;
+    `https://script.google.com/macros/s/AKfycbykKD1MO4VWywUHm0EQ8FIATXZNEfPPyxTk1LETVV8xKPj4RIiONrHhEcuA3PdA3E7eCw/exec/exec?token=${token}&callback=handleCert`;
 
   let s = document.createElement("script");
   s.src = url;
